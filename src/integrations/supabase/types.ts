@@ -94,6 +94,57 @@ export type Database = {
         }
         Relationships: []
       }
+      nowpayments_invoices: {
+        Row: {
+          bonus_applied: number | null
+          created_at: string
+          id: string
+          invoice_url: string | null
+          order_id: string
+          pay_amount: number | null
+          pay_currency: string | null
+          payment_id: string | null
+          price_amount: number | null
+          price_currency: string | null
+          raw_payload: Json | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          bonus_applied?: number | null
+          created_at?: string
+          id?: string
+          invoice_url?: string | null
+          order_id: string
+          pay_amount?: number | null
+          pay_currency?: string | null
+          payment_id?: string | null
+          price_amount?: number | null
+          price_currency?: string | null
+          raw_payload?: Json | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          bonus_applied?: number | null
+          created_at?: string
+          id?: string
+          invoice_url?: string | null
+          order_id?: string
+          pay_amount?: number | null
+          pay_currency?: string | null
+          payment_id?: string | null
+          price_amount?: number | null
+          price_currency?: string | null
+          raw_payload?: Json | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       payment_transactions: {
         Row: {
           amount: number
@@ -288,6 +339,108 @@ export type Database = {
           },
         ]
       }
+      shop_products: {
+        Row: {
+          category: string
+          created_at: string
+          head1: string | null
+          head2: string | null
+          head3: string | null
+          head4: string | null
+          head5: string | null
+          head6: string | null
+          head7: string | null
+          head8: string | null
+          head9: string | null
+          id: string
+          price: number
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          head1?: string | null
+          head2?: string | null
+          head3?: string | null
+          head4?: string | null
+          head5?: string | null
+          head6?: string | null
+          head7?: string | null
+          head8?: string | null
+          head9?: string | null
+          id?: string
+          price: number
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          head1?: string | null
+          head2?: string | null
+          head3?: string | null
+          head4?: string | null
+          head5?: string | null
+          head6?: string | null
+          head7?: string | null
+          head8?: string | null
+          head9?: string | null
+          id?: string
+          price?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          created_at: string
+          key: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          created_at?: string
+          key: string
+          updated_at?: string
+          value: Json
+        }
+        Update: {
+          created_at?: string
+          key?: string
+          updated_at?: string
+          value?: Json
+        }
+        Relationships: []
+      }
+      tickets: {
+        Row: {
+          created_at: string
+          id: string
+          message: string
+          status: string
+          subject: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message: string
+          status?: string
+          subject: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string
+          status?: string
+          subject?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       transactions: {
         Row: {
           amount: number
@@ -331,6 +484,24 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
       }
       user_wallets: {
         Row: {
@@ -402,6 +573,17 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      ensure_user_profile_and_wallet: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
+      has_role: {
+        Args: {
+          _user_id: string
+          _role: Database["public"]["Enums"]["app_role"]
+        }
+        Returns: boolean
+      }
       increment_purchase_counter: {
         Args: Record<PropertyKey, never>
         Returns: undefined
@@ -418,7 +600,7 @@ export type Database = {
       }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -545,6 +727,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const
