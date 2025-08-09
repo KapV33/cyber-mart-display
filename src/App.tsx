@@ -10,8 +10,10 @@ import Profile from "./pages/Profile";
 import Category from "./pages/Category";
 import Checkout from "./pages/Checkout";
 import Admin from "./pages/Admin";
+import AdminLogin from "./pages/AdminLogin";
 import MainLayout from "./layouts/MainLayout";
 import { CartProvider } from "./context/CartContext";
+import RequireAdmin from "./components/RequireAdmin";
 
 const queryClient = new QueryClient();
 
@@ -29,7 +31,8 @@ const App = () => (
               <Route path="/profile" element={<Profile />} />
               <Route path="/category/:cat" element={<Category />} />
               <Route path="/checkout" element={<Checkout />} />
-              <Route path="/admin" element={<Admin />} />
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin" element={<RequireAdmin><Admin /></RequireAdmin>} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
