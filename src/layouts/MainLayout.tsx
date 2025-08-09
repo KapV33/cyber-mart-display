@@ -8,7 +8,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
     <div className="min-h-screen bg-gradient-to-b from-background to-muted text-foreground">
       <header className="border-b">
         <div className="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="text-xl font-bold tracking-tight">
+          <Link to="/" className="text-xl md:text-2xl font-bold tracking-tight font-display hover-scale">
             Blatnoy
           </Link>
           <nav className="hidden md:flex gap-4" aria-label="Product categories">
