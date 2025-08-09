@@ -27,7 +27,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
           <div className="flex items-center gap-3">
             <Link to="/checkout" className="hover:underline">Cart</Link>
             <Link to="/profile" className="hover:underline">Profile</Link>
-            <Link to="/admin" className="hover:underline">Admin</Link>
+            
           </div>
         </div>
       </header>
