@@ -5,7 +5,7 @@ const categories = ["cat1","cat2","cat3","cat4","cat5","cat6","cat7"] as const;
 
 export default function MainLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted text-foreground">
+    <div className="min-h-screen text-foreground bg-gradient-primary">
       <header className="border-b">
         <div className="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between">
           <Link to="/" className="text-xl md:text-2xl font-bold tracking-tight font-display hover-scale">

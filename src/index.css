@@ -8,51 +8,48 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 220 13% 12%; /* charcoal */
+    --foreground: 0 0% 98%;    /* white */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 220 13% 12%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 220 13% 12%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 220 13% 18%; /* charcoal/grey primary */
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 35 95% 55%; /* warm secondary */
+    --secondary-foreground: 0 0% 10%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 13% 8%;
+    --muted-foreground: 0 0% 80%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 35 95% 55%;
+    --accent-foreground: 0 0% 10%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 13% 22%;
+    --input: 220 13% 22%;
+    --ring: 35 95% 55%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
+    --sidebar-background: 220 13% 10%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 220 13% 18%;
     --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 35 95% 55%;
+    --sidebar-accent-foreground: 0 0% 10%;
+    --sidebar-border: 220 13% 22%;
+    --sidebar-ring: 35 95% 55%;
 
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Gradients */
+    --gradient-primary: linear-gradient(180deg, hsl(220 13% 14%), hsl(220 13% 8%));
+    --gradient-secondary: linear-gradient(135deg, hsl(10 90% 55%), hsl(35 95% 55%), hsl(50 95% 60%));
   }
 
   .dark {
@@ -127,4 +124,6 @@ All colors MUST be HSL.
   }
   .hover-scale { @apply transition-transform duration-200 hover:scale-105; }
   .pulse { animation: pulse 2s cubic-bezier(0.4,0,0.6,1) infinite; }
+  .bg-gradient-primary { background-image: var(--gradient-primary); background-size: cover; background-attachment: fixed; }
+  .bg-gradient-secondary { background-image: var(--gradient-secondary); }
 }

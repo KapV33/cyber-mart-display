@@ -23,7 +23,7 @@ export default function Admin() {
 
       <div className="space-y-2">
         <h2 className="text-xl font-semibold">CSV Import</h2>
-        <p className="text-sm text-muted-foreground">Upload your shop_products CSV to import products.</p>
+        <p className="text-sm text-muted-foreground">Upload your shop_products CSV to import products for all categories.</p>
         <div className="flex items-center gap-3">
           <input
             ref={fileInputRef}
