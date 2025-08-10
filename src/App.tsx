@@ -14,6 +14,7 @@ import AdminLogin from "./pages/AdminLogin";
 import MainLayout from "./layouts/MainLayout";
 import { CartProvider } from "./context/CartContext";
 import RequireAdmin from "./components/RequireAdmin";
+import RequireAuth from "./components/RequireAuth";
 
 const queryClient = new QueryClient();
 
@@ -26,11 +27,11 @@ const App = () => (
         <BrowserRouter>
           <MainLayout>
             <Routes>
-              <Route path="/" element={<Index />} />
+              <Route path="/" element={<RequireAuth><Index /></RequireAuth>} />
               <Route path="/auth" element={<Auth />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/category/:cat" element={<Category />} />
-              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/profile" element={<RequireAuth><Profile /></RequireAuth>} />
+              <Route path="/category/:cat" element={<RequireAuth><Category /></RequireAuth>} />
+              <Route path="/checkout" element={<RequireAuth><Checkout /></RequireAuth>} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin" element={<RequireAdmin><Admin /></RequireAdmin>} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

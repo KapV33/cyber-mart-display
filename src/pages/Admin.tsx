@@ -34,18 +34,25 @@ export default function Admin() {
             const s = (v ?? "").trim();
             return s === "" ? null : s;
           };
-          const priceVal = Number(String(row["price"] ?? "").replace(/[^0-9.\-]/g, ""));
+          const get = (r: Record<string, string>, keys: string[]) => {
+            for (const k of keys) {
+              const val = r[k];
+              if (val !== undefined && String(val).trim() !== "") return String(val).trim();
+            }
+            return "";
+          };
+          const priceVal = Number(String(get(row, ["price"]).replace(/[^0-9.\-]/g, "")));
           return {
-            category: String(row["category"] ?? "").trim(),
-            head1: toNull(row["head1"]),
-            head2: toNull(row["head2"]),
-            head3: toNull(row["head3"]),
-            head4: toNull(row["head4"]),
-            head5: toNull(row["head5"]),
-            head6: toNull(row["head6"]),
-            head7: toNull(row["head7"]),
-            head8: toNull(row["head8"]),
-            head9: toNull(row["head9"]),
+            category: String(get(row, ["category"]) ?? "").trim(),
+            head1: toNull(get(row, ["head1", "bin"])),
+            head2: toNull(get(row, ["head2", "country"])),
+            head3: toNull(get(row, ["head3", "type"])),
+            head4: toNull(get(row, ["head4", "name"])),
+            head5: toNull(get(row, ["head5", "exp"])),
+            head6: toNull(get(row, ["head6", "city"])),
+            head7: toNull(get(row, ["head7", "state"])),
+            head8: toNull(get(row, ["head8", "zip"])),
+            head9: toNull(get(row, ["head9", "base"])),
             price: isNaN(priceVal) ? 0 : priceVal,
           };
         })

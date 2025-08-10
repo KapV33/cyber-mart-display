@@ -33,21 +33,22 @@ export default function Category() {
         <TableCaption>Browse products in {cat}</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead>Head1</TableHead>
-            <TableHead>Head2</TableHead>
-            <TableHead>Head3</TableHead>
-            <TableHead>Head4</TableHead>
-            <TableHead>Head5</TableHead>
-            <TableHead>Head6</TableHead>
-            <TableHead>Head7</TableHead>
-            <TableHead>Head8</TableHead>
-            <TableHead>Head9</TableHead>
-            <TableHead>Head10</TableHead>
+            <TableHead>BIN</TableHead>
+            <TableHead>Country</TableHead>
+            <TableHead>Type</TableHead>
+            <TableHead>Name</TableHead>
+            <TableHead>EXP</TableHead>
+            <TableHead>City</TableHead>
+            <TableHead>State</TableHead>
+            <TableHead>ZIP</TableHead>
+            <TableHead>Base</TableHead>
+            <TableHead>Price</TableHead>
+            <TableHead>Add to cart</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {isLoading ? (
-            <TableRow><TableCell colSpan={10}>Loading…</TableCell></TableRow>
+            <TableRow><TableCell colSpan={11}>Loading…</TableCell></TableRow>
           ) : data && data.length > 0 ? (
             data.map((p) => (
               <TableRow key={p.id}>
@@ -60,6 +61,7 @@ export default function Category() {
                 <TableCell>{p.head7}</TableCell>
                 <TableCell>{p.head8}</TableCell>
                 <TableCell>{p.head9}</TableCell>
+                <TableCell>{Number(p.price).toFixed(2)}</TableCell>
                 <TableCell>
                   <Button size="sm" onClick={() => add({ id: p.id, title: p.head1, price: Number(p.price) })}>
                     Add to cart
@@ -68,7 +70,7 @@ export default function Category() {
               </TableRow>
             ))
           ) : (
-            <TableRow><TableCell colSpan={10}>No products yet.</TableCell></TableRow>
+            <TableRow><TableCell colSpan={11}>No products yet.</TableCell></TableRow>
           )}
         </TableBody>
       </Table>
