@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import Papa from "papaparse";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function Admin() {
   useEffect(() => {
@@ -11,7 +13,36 @@ export default function Admin() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
-  const onChooseFile = () => fileInputRef.current?.click();
+
+  // Category rename state
+  const [categories, setCategories] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [newCategoryName, setNewCategoryName] = useState("");
+  const [savingCat, setSavingCat] = useState(false);
+
+  // Theme editor state
+  const [primary, setPrimary] = useState("");
+  const [secondary, setSecondary] = useState("");
+  const [savingTheme, setSavingTheme] = useState(false);
+
+  useEffect(() => {
+    // Load categories
+    (async () => {
+      const { data, error } = await (supabase.from("shop_products") as any).select('"Category"');
+      if (!error && data) {
+        const names = Array.from(new Set((data as any[]).map((d) => d.Category).filter(Boolean)));
+        setCategories(names);
+      }
+    })();
+    // Load current theme
+    (async () => {
+      const { data } = await supabase.from("site_settings").select("value").eq("key", "theme").maybeSingle();
+      const vars = (data as any)?.value?.cssVars ?? {};
+      setPrimary(vars.primary ?? "");
+      setSecondary(vars.secondary ?? "");
+    })();
+  }, []);
+
   const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -78,10 +109,43 @@ export default function Admin() {
     }
   };
 
+  const renameCategory = async () => {
+    if (!selectedCategory || !newCategoryName) return;
+    setSavingCat(true);
+    const { error } = await supabase
+      .from("shop_products")
+      .update({ Category: newCategoryName })
+      .eq("Category", selectedCategory);
+    if (error) {
+      toast({ title: "Rename failed", description: error.message });
+    } else {
+      toast({ title: "Category renamed", description: `${selectedCategory} → ${newCategoryName}` });
+      setCategories((prev) => Array.from(new Set([...prev.filter((c) => c !== selectedCategory), newCategoryName])).sort());
+      setSelectedCategory(newCategoryName);
+      setNewCategoryName("");
+    }
+    setSavingCat(false);
+  };
+
+  const saveTheme = async () => {
+    setSavingTheme(true);
+    const value = { cssVars: { primary, secondary } };
+    const { error } = await supabase.from("site_settings").upsert({ key: "theme", value });
+    if (error) {
+      toast({ title: "Save failed", description: error.message });
+    } else {
+      toast({ title: "Theme saved", description: "Applied to the site" });
+      const root = document.documentElement;
+      if (primary) root.style.setProperty("--primary", primary);
+      if (secondary) root.style.setProperty("--secondary", secondary);
+    }
+    setSavingTheme(false);
+  };
+
   return (
     <section aria-labelledby="admin-heading" className="space-y-6 animate-fade-in">
       <h1 id="admin-heading" className="text-2xl font-semibold">Admin Panel</h1>
-      <p className="text-muted-foreground">Settings, users, tickets, wallets, and CSV import UI will be added next.</p>
+      <p className="text-muted-foreground">Manage products, categories, and theme.</p>
 
       <div className="space-y-2">
         <h2 className="text-xl font-semibold">CSV Import</h2>
@@ -97,6 +161,47 @@ export default function Admin() {
           />
           <Button onClick={onChooseFile} aria-label="Upload CSV file" disabled={uploading}>{uploading ? "Uploading…" : "Upload CSV"}</Button>
           <a className="story-link relative text-sm" href="/csv/shop_products_template.csv" download>Download template</a>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <h2 className="text-xl font-semibold">Category Manager</h2>
+        <p className="text-sm text-muted-foreground">Rename a category (updates all products in that category).</p>
+        <div className="flex flex-col md:flex-row gap-3 md:items-center">
+          <Select onValueChange={setSelectedCategory}>
+            <SelectTrigger className="w-full md:w-64"><SelectValue placeholder="Select category" /></SelectTrigger>
+            <SelectContent>
+              {categories.map((c) => (
+                <SelectItem key={c} value={c}>{c}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Input
+            placeholder="New category name"
+            value={newCategoryName}
+            onChange={(e) => setNewCategoryName(e.target.value)}
+          />
+          <Button onClick={renameCategory} disabled={savingCat || !selectedCategory || !newCategoryName}>
+            {savingCat ? "Renaming…" : "Rename"}
+          </Button>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <h2 className="text-xl font-semibold">Theme Styles</h2>
+        <p className="text-sm text-muted-foreground">Edit core colors using HSL values (e.g., 220 13% 18%).</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <label htmlFor="primary" className="text-sm">Primary (--primary)</label>
+            <Input id="primary" placeholder="e.g. 220 13% 18%" value={primary} onChange={(e) => setPrimary(e.target.value)} />
+          </div>
+          <div>
+            <label htmlFor="secondary" className="text-sm">Secondary (--secondary)</label>
+            <Input id="secondary" placeholder="e.g. 35 95% 55%" value={secondary} onChange={(e) => setSecondary(e.target.value)} />
+          </div>
+        </div>
+        <div>
+          <Button onClick={saveTheme} disabled={savingTheme}>{savingTheme ? "Saving…" : "Save theme"}</Button>
         </div>
       </div>
     </section>
