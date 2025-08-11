@@ -13,7 +13,7 @@ export default function Admin() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
-
+  const onChooseFile = () => fileInputRef.current?.click();
   // Category rename state
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -96,7 +96,7 @@ export default function Admin() {
       const chunkSize = 500;
       for (let i = 0; i < rows.length; i += chunkSize) {
         const chunk = rows.slice(i, i + chunkSize);
-        const { error } = await supabase.from("shop_products").insert(chunk);
+        const { error } = await (supabase.from("shop_products") as any).insert(chunk);
         if (error) throw error;
       }
 
@@ -112,8 +112,7 @@ export default function Admin() {
   const renameCategory = async () => {
     if (!selectedCategory || !newCategoryName) return;
     setSavingCat(true);
-    const { error } = await supabase
-      .from("shop_products")
+    const { error } = await (supabase.from("shop_products") as any)
       .update({ Category: newCategoryName })
       .eq("Category", selectedCategory);
     if (error) {
