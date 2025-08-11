@@ -17,10 +17,10 @@ export default function Category() {
   const { data, isLoading } = useQuery({
     queryKey: ["shop_products", cat],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("shop_products")
-        .select("id, category, head1, head2, head3, head4, head5, head6, head7, head8, head9, price")
-        .eq("category", cat);
+      const { data, error } = await (supabase
+        .from("shop_products") as any)
+        .select('id, "Category", "BIN", "Country", "Type", "Name", "EXP", "City", "State", "ZIP", "Base", price')
+        .eq("Category", cat);
       if (error) throw error;
       return data ?? [];
     },
@@ -52,18 +52,18 @@ export default function Category() {
           ) : data && data.length > 0 ? (
             data.map((p) => (
               <TableRow key={p.id}>
-                <TableCell>{p.head1}</TableCell>
-                <TableCell>{p.head2}</TableCell>
-                <TableCell>{p.head3}</TableCell>
-                <TableCell>{p.head4}</TableCell>
-                <TableCell>{p.head5}</TableCell>
-                <TableCell>{p.head6}</TableCell>
-                <TableCell>{p.head7}</TableCell>
-                <TableCell>{p.head8}</TableCell>
-                <TableCell>{p.head9}</TableCell>
+                <TableCell>{p.BIN}</TableCell>
+                <TableCell>{p.Country}</TableCell>
+                <TableCell>{p.Type}</TableCell>
+                <TableCell>{p.Name}</TableCell>
+                <TableCell>{p.EXP}</TableCell>
+                <TableCell>{p.City}</TableCell>
+                <TableCell>{p.State}</TableCell>
+                <TableCell>{p.ZIP}</TableCell>
+                <TableCell>{p.Base}</TableCell>
                 <TableCell>{Number(p.price).toFixed(2)}</TableCell>
                 <TableCell>
-                  <Button size="sm" onClick={() => add({ id: p.id, title: p.head1, price: Number(p.price) })}>
+                  <Button size="sm" onClick={() => add({ id: p.id, title: p.BIN, price: Number(p.price) })}>
                     Add to cart
                   </Button>
                 </TableCell>

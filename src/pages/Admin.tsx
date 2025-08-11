@@ -43,20 +43,20 @@ export default function Admin() {
           };
           const priceVal = Number(String(get(row, ["price"]).replace(/[^0-9.\-]/g, "")));
           return {
-            category: String(get(row, ["category"]) ?? "").trim(),
-            head1: toNull(get(row, ["head1", "bin"])),
-            head2: toNull(get(row, ["head2", "country"])),
-            head3: toNull(get(row, ["head3", "type"])),
-            head4: toNull(get(row, ["head4", "name"])),
-            head5: toNull(get(row, ["head5", "exp"])),
-            head6: toNull(get(row, ["head6", "city"])),
-            head7: toNull(get(row, ["head7", "state"])),
-            head8: toNull(get(row, ["head8", "zip"])),
-            head9: toNull(get(row, ["head9", "base"])),
+            Category: String(get(row, ["category"]) ?? "").trim(),
+            BIN: toNull(get(row, ["bin", "head1"])),
+            Country: toNull(get(row, ["country", "head2"])),
+            Type: toNull(get(row, ["type", "head3"])),
+            Name: toNull(get(row, ["name", "head4"])),
+            EXP: toNull(get(row, ["exp", "head5"])),
+            City: toNull(get(row, ["city", "head6"])),
+            State: toNull(get(row, ["state", "head7"])),
+            ZIP: toNull(get(row, ["zip", "head8"])),
+            Base: toNull(get(row, ["base", "head9"])),
             price: isNaN(priceVal) ? 0 : priceVal,
           };
         })
-        .filter((r) => r.category && typeof r.price === "number");
+        .filter((r) => r.Category && typeof r.price === "number");
 
       if (rows.length === 0) {
         throw new Error("No valid rows found. Make sure CSV has headers: category, head1..head9, price");
