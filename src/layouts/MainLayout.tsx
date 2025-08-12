@@ -31,6 +31,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
           </div>
         </div>
       </header>
+      <div className="h-1 bg-gradient-secondary" aria-hidden="true" />
       <main className="mx-auto max-w-7xl px-4 py-6">
         {children}
       </main>

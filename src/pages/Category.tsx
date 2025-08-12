@@ -41,7 +41,7 @@ const filtered = useMemo(() => {
 
   return (
     <section aria-labelledby="category-heading">
-      <h1 id="category-heading" className="text-2xl font-semibold mb-4">{cat}</h1>
+      <h1 id="category-heading" className="text-2xl font-semibold mb-4 text-gradient-secondary inline-block">{cat}</h1>
       <div className="mb-4">
         <label htmlFor="category-search" className="sr-only">Search</label>
         <Input

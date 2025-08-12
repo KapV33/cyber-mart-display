@@ -48,7 +48,7 @@ All colors MUST be HSL.
     --sidebar-ring: 35 95% 55%;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(220 80% 16%), hsl(220 80% 24%), hsl(205 90% 35%));
+    --gradient-primary: linear-gradient(180deg, hsl(220 13% 14%), hsl(220 13% 8%));
     --gradient-secondary: linear-gradient(135deg, hsl(15 90% 55%), hsl(30 95% 55%), hsl(50 95% 58%));
   }
 
@@ -126,4 +126,5 @@ All colors MUST be HSL.
   .pulse { animation: pulse 2s cubic-bezier(0.4,0,0.6,1) infinite; }
   .bg-gradient-primary { background-image: var(--gradient-primary); background-size: cover; background-attachment: fixed; }
   .bg-gradient-secondary { background-image: var(--gradient-secondary); }
+  .text-gradient-secondary { background-image: var(--gradient-secondary); -webkit-background-clip: text; background-clip: text; color: transparent; }
 }
