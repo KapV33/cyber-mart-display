@@ -341,52 +341,52 @@ export type Database = {
       }
       shop_products: {
         Row: {
-          category: string
+          Base: string | null
+          BIN: string | null
+          Category: string | null
+          City: string | null
+          Country: string | null
           created_at: string
-          head1: string | null
-          head2: string | null
-          head3: string | null
-          head4: string | null
-          head5: string | null
-          head6: string | null
-          head7: string | null
-          head8: string | null
-          head9: string | null
+          EXP: string | null
           id: string
+          Name: string | null
           price: number
+          State: string | null
+          Type: string | null
           updated_at: string
+          ZIP: string | null
         }
         Insert: {
-          category: string
+          Base?: string | null
+          BIN?: string | null
+          Category?: string | null
+          City?: string | null
+          Country?: string | null
           created_at?: string
-          head1?: string | null
-          head2?: string | null
-          head3?: string | null
-          head4?: string | null
-          head5?: string | null
-          head6?: string | null
-          head7?: string | null
-          head8?: string | null
-          head9?: string | null
+          EXP?: string | null
           id?: string
+          Name?: string | null
           price: number
+          State?: string | null
+          Type?: string | null
           updated_at?: string
+          ZIP?: string | null
         }
         Update: {
-          category?: string
+          Base?: string | null
+          BIN?: string | null
+          Category?: string | null
+          City?: string | null
+          Country?: string | null
           created_at?: string
-          head1?: string | null
-          head2?: string | null
-          head3?: string | null
-          head4?: string | null
-          head5?: string | null
-          head6?: string | null
-          head7?: string | null
-          head8?: string | null
-          head9?: string | null
+          EXP?: string | null
           id?: string
+          Name?: string | null
           price?: number
+          State?: string | null
+          Type?: string | null
           updated_at?: string
+          ZIP?: string | null
         }
         Relationships: []
       }
