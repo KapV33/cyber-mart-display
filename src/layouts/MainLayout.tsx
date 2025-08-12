@@ -34,7 +34,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
       <main className="mx-auto max-w-7xl px-4 py-6">
         {children}
       </main>
-      <footer className="border-t py-6 text-center text-sm text-muted-foreground">
+      <footer className="border-t py-6 text-center text-sm text-muted-foreground bg-gradient-secondary">
         © {new Date().getFullYear()} Blatnoy
       </footer>
     </div>

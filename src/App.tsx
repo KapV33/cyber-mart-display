@@ -15,6 +15,7 @@ import MainLayout from "./layouts/MainLayout";
 import { CartProvider } from "./context/CartContext";
 import RequireAdmin from "./components/RequireAdmin";
 import RequireAuth from "./components/RequireAuth";
+import ThemeLoader from "./components/ThemeLoader";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <ThemeLoader />
       <CartProvider>
         <BrowserRouter>
           <MainLayout>

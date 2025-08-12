@@ -72,8 +72,8 @@ const filtered = useMemo(() => {
         <TableBody>
           {isLoading ? (
             <TableRow><TableCell colSpan={11}>Loading…</TableCell></TableRow>
-          ) : data && data.length > 0 ? (
-            data.map((p) => (
+          ) : filtered.length > 0 ? (
+            filtered.map((p: any) => (
               <TableRow key={p.id}>
                 <TableCell>{p.BIN}</TableCell>
                 <TableCell>{p.Country}</TableCell>
@@ -86,7 +86,10 @@ const filtered = useMemo(() => {
                 <TableCell>{p.Base}</TableCell>
                 <TableCell>{Number(p.price).toFixed(2)}</TableCell>
                 <TableCell>
-                  <Button size="sm" onClick={() => add({ id: p.id, title: p.BIN, price: Number(p.price) })}>
+                  <Button size="sm" onClick={() => {
+                    add({ id: p.id, title: p.BIN ?? p.Name, price: Number(p.price) });
+                    toast({ title: "Added to cart", description: `${p.BIN ?? p.Name ?? "Item"} added to cart.` });
+                  }}>
                     Add to cart
                   </Button>
                 </TableCell>
