@@ -25,6 +25,11 @@ export default function Admin() {
   const [secondary, setSecondary] = useState("");
   const [savingTheme, setSavingTheme] = useState(false);
 
+  // Navigation categories state
+  const [navCats, setNavCats] = useState<string[]>([]);
+  const [newNavCat, setNewNavCat] = useState("");
+  const [savingNav, setSavingNav] = useState(false);
+
   useEffect(() => {
     // Load categories
     (async () => {

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -9,6 +10,8 @@ export default function Profile() {
   const [email, setEmail] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const [amount, setAmount] = useState<string>("");
+  const [creating, setCreating] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
