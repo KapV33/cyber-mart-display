@@ -7,7 +7,7 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "12.2.3 (519615d)"
@@ -161,6 +161,7 @@ export type Database = {
           stripe_payment_intent_id: string | null
           stripe_session_id: string | null
           updated_at: string
+          user_id: string | null
         }
         Insert: {
           amount: number
@@ -177,6 +178,7 @@ export type Database = {
           stripe_payment_intent_id?: string | null
           stripe_session_id?: string | null
           updated_at?: string
+          user_id?: string | null
         }
         Update: {
           amount?: number
@@ -193,6 +195,7 @@ export type Database = {
           stripe_payment_intent_id?: string | null
           stripe_session_id?: string | null
           updated_at?: string
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -570,7 +573,16 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      leaderboard: {
+        Row: {
+          completion_time: number | null
+          date_achieved: string | null
+          rank: number | null
+          score: number | null
+          total_questions: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       ensure_user_profile_and_wallet: {
@@ -579,8 +591,8 @@ export type Database = {
       }
       has_role: {
         Args: {
-          _user_id: string
           _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
         }
         Returns: boolean
       }
@@ -590,11 +602,11 @@ export type Database = {
       }
       update_wallet_balance: {
         Args: {
-          p_user_id: string
           p_amount: number
-          p_transaction_type: string
           p_description?: string
           p_transaction_hash?: string
+          p_transaction_type: string
+          p_user_id: string
         }
         Returns: string
       }
