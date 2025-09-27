@@ -94,6 +94,33 @@ export type Database = {
         }
         Relationships: []
       }
+      leaderboard: {
+        Row: {
+          completion_time: number | null
+          date_achieved: string | null
+          rank: number | null
+          score: number | null
+          total_questions: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          completion_time?: number | null
+          date_achieved?: string | null
+          rank?: number | null
+          score?: number | null
+          total_questions?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          completion_time?: number | null
+          date_achieved?: string | null
+          rank?: number | null
+          score?: number | null
+          total_questions?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       nowpayments_invoices: {
         Row: {
           bonus_applied: number | null
@@ -573,16 +600,7 @@ export type Database = {
       }
     }
     Views: {
-      leaderboard: {
-        Row: {
-          completion_time: number | null
-          date_achieved: string | null
-          rank: number | null
-          score: number | null
-          total_questions: number | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Functions: {
       ensure_user_profile_and_wallet: {
@@ -597,6 +615,10 @@ export type Database = {
         Returns: boolean
       }
       increment_purchase_counter: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
+      refresh_leaderboard: {
         Args: Record<PropertyKey, never>
         Returns: undefined
       }
